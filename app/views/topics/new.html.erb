@@ -1,0 +1,92 @@
+
+<div class="topics-form">
+
+
+<%= form_with model: @topic,data: {turbo: false} do |form| %>
+  <div class="each-form">
+  <%= form.label :タイトル %>
+  <%= form.text_field :title %>
+
+  </div>
+
+  <div class="each-form">
+  <%= form.label :url %>
+  <%= form.url_field :url %>
+  </div>
+
+  <div class="each-form">
+  <%= form.label :画像url %>
+  <%= form.url_field :image_url %>
+  </div>
+
+
+  <div class="each-form">
+  <%= form.label :配信日 %>
+  <%= form.date_field :published_at %>
+  </div>
+<div class="each-form coordinate-form">
+ <%= form.label :緯度 %>
+ <%= form.number_field :latitude, id: "topic_latitude", step: "any" %>
+ <%= form.label :経度 %>
+ <%= form.number_field :longitude, id: "topic_longitude", step: "any" %>
+</div>
+
+
+  <%= text_field_tag :search, params[:search], placeholder: "東京都", id: "address" %>
+<button id="searchbtn" type="button">検索</button>
+<div id="map"></div>
+
+
+
+<script>
+document.addEventListener("turbo:load",function(){
+
+const map = L.map('map').setView([35.0,135.0],5);
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+ }).addTo(map);
+
+ const searchBtn = document.getElementById("searchbtn");
+
+  searchBtn.addEventListener("click", async function(){
+    const address = document.getElementById("address").value;
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`;
+
+    try{
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if(data.length > 0){
+        const lat = data[0].lat;
+        const lon = data[0].lon;
+
+        map.setView([lat,lon],7);
+        L.marker([lat,lon]).addTo(map);
+       document.getElementById("topic_latitude").value = parseFloat(lat);
+       document.getElementById("topic_longitude").value = parseFloat(lon);
+       }
+
+       else{
+        alert("該当する場所が見つかりませんでした");
+       }
+
+      }
+
+       catch(error){
+        console.error("エラーが発生しました",error);
+
+      }
+  });
+ });
+ </script>
+
+
+
+  <div class="each-form">
+  <%= form.submit "マップに追加する",id:"submitbtn" %>
+  </div>
+
+  <% end %>
+</div>
+
