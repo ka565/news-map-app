@@ -1,0 +1,47 @@
+
+
+body.topics.new{
+  background: radial-gradient(#473B7B 0%,#3584A7 51%,#2084a0a3 100%);
+}
+
+label{
+  color: white;
+}
+
+
+
+.topics-form{
+  margin-top: 50px;
+  text-align: center;
+  
+}
+
+.each-form{
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+input{
+  width: 200px;
+   background: lightgray;
+  color: black;
+  border-radius: 4px;
+
+}
+
+.coordinate-form input{
+  width: 75px;
+}
+
+.coordinate-form{
+  display: inline;
+
+}
+
+
+#submitbtn{
+  margin-top: 10px;
+}
+
