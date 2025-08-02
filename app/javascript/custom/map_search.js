@@ -77,7 +77,7 @@ catch(error){
 fetchtranslate();
 
 
-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
+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
 
 
 
