@@ -62,7 +62,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
- #geocoderはやっぱり使わなさそうなので後で下記の記述を消しておく
-gem 'geocoder'
+gem 'dotenv-rails'
 
 gem 'natto'
