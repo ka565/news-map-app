@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :topics,  only:[:index, :new, :create] do
+  resources :topics,  only:[:index, :create] do
     collection do
       post 'fetch_and_save'
     end

@@ -8,13 +8,9 @@ class TopicsController < ApplicationController
     @topics = Topic.all
   end
 
-  def new
-    @topic = Topic.new
-  end
-
   def fetch_and_save
     fetch_articles_and_save
-    redirect_to topics_path,notice: "ニュースを更新しました"
+    redirect_to topics_path
   end
 
   private
@@ -26,7 +22,7 @@ class TopicsController < ApplicationController
 
     ]
     api_key = ENV["NEWS_API_KEY"]
-    request_range = 1..5
+    request_range = 1..10
     each_article_range = 0..2
 
     nm = Natto::MeCab.new
